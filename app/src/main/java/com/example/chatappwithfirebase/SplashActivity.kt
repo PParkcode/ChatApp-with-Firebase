@@ -25,10 +25,15 @@ class SplashActivity :AppCompatActivity(){
 
         remoteConfig = Firebase.remoteConfig
         val configSettings = remoteConfigSettings {
-            minimumFetchIntervalInSeconds = 0
+            minimumFetchIntervalInSeconds = 3600
+            mapOf(
+                SPLASH_BACKGROUND to "#000000",
+                SPLASH_MESSAGE_CAPS to "false",
+                SPLASH_MESSAGE to "welcome to my awesome app!~"
+            )
         }
         remoteConfig.setConfigSettingsAsync(configSettings)
-        remoteConfig.setDefaultsAsync(R.xml.default_config)
+        //remoteConfig.setDefaultsAsync(R.xml.default_config)
 
         remoteConfig.fetchAndActivate()
             .addOnCompleteListener(this) { task ->
@@ -44,9 +49,6 @@ class SplashActivity :AppCompatActivity(){
                 displayMessage()
 
             }
-
-
-
     }
     fun displayMessage(){
         Log.d("tag1","displayMessage 실행")
@@ -66,6 +68,11 @@ class SplashActivity :AppCompatActivity(){
             startActivity(Intent(this,LoginActivity::class.java))
         }
 
+    }
+    companion object{
+        const val SPLASH_BACKGROUND="splash_background"
+        const val SPLASH_MESSAGE_CAPS="splash_message_caps"
+        const val SPLASH_MESSAGE="splash_message"
     }
 
 
